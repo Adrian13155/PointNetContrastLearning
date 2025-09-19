@@ -39,12 +39,19 @@ class ContrastPointNet(nn.Module):
 
     def forward(self, x):
         # x: (B, 3, N)
-        h, trans, trans_feat = self.feat(x)  # h: (B,1024)
+        point_feat, trans, trans_feat = self.feat(x)  # point_feat: (B, 1024, N)
+        
+        # 对点级特征进行最大池化得到全局特征
+        h = torch.max(point_feat, 2, keepdim=True)[0]  # (B, 1024, 1)
+        h = h.view(-1, 1024)  # (B, 1024)
+        
+        # 分类
         xcls = F.relu(self.bn1(self.fc1(h)))
         xcls = F.relu(self.bn2(self.dropout(self.fc2(xcls))))
         logits = self.fc3(xcls)
         log_probs = F.log_softmax(logits, dim=1)
 
+        # 对比学习投影
         z = self.proj(h)
 
-        return log_probs, z, trans, trans_feat
+        return log_probs, z, h, point_feat, trans, trans_feat

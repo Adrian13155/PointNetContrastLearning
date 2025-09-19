@@ -94,7 +94,7 @@ class PointNetfeat(nn.Module):
         x = x.transpose(2, 1)
         x = torch.bmm(x, trans)
         x = x.transpose(2, 1)
-        x = F.relu(self.bn1(self.conv1(x)))
+        x = F.relu(self.bn1(self.conv1(x)))  # (B, 64, N)
 
         if self.feature_transform:
             trans_feat = self.fstn(x)
@@ -104,16 +104,11 @@ class PointNetfeat(nn.Module):
         else:
             trans_feat = None
 
-        x = F.relu(self.bn2(self.conv2(x)))
-        x = self.bn3(self.conv3(x))
-        x = torch.max(x, 2, keepdim=True)[0]
-        x = x.view(-1, 1024)
-
-        if self.global_feat:
-            return x, trans, trans_feat
-        else:
-            x = x.view(-1, 1024, 1).repeat(1, 1, n_pts)
-            return torch.cat([x, x], 1), trans, trans_feat  # kept minimal for classification-only usage
+        x = F.relu(self.bn2(self.conv2(x)))  # (B, 128, N)
+        x = self.bn3(self.conv3(x))  # (B, 1024, N)
+        
+        # 返回点级特征，不进行池化
+        return x, trans, trans_feat  # (B, 1024, N)
 
 
 class PointNetCls(nn.Module):
