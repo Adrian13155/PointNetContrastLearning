@@ -1,0 +1,252 @@
+[2025-09-23 10:04:02,657][contrast_train.py][line:271][INFO] Arguments: Namespace(batchSize=32, dataset='/data/cjj/projects/pointnet.pytorch/data/modelnet40_ply_hdf5_2048', exp_name='ModifiedGroupContrastWithFeatureTransform', feature_transform=True, gamma=0.5, gpu_id='0', graphcut_c=0.5, graphcut_k=8, graphcut_min_size=20, lambda_con=0.1, lambda_region=0.1, lr=0.001, nepoch=200, no_jitter=False, npoints=1024, rotation_mode='xyz', save_dir='/data/cjj/projects/pointnet.pytorch/Contrast_exp/experiment', seed=42, step_size=20, temperature=0.07, use_cpu=False, use_graphcut_segmentation=True, use_region_contrast=True, workers=4)
+[2025-09-23 10:04:02,657][contrast_train.py][line:272][INFO] model params: 3.766769 M
+[2025-09-23 10:04:02,658][contrast_train.py][line:273][INFO] Network Structure: ContrastPointNet(
+  (feat): PointNetfeat(
+    (stn): STN3d(
+      (conv1): Conv1d(3, 64, kernel_size=(1,), stride=(1,))
+      (conv2): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+      (conv3): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+      (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (bn2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (bn3): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (fc1): Linear(in_features=1024, out_features=512, bias=True)
+      (fc2): Linear(in_features=512, out_features=256, bias=True)
+      (fc3): Linear(in_features=256, out_features=9, bias=True)
+      (bn4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (bn5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+    (conv1): Conv1d(3, 64, kernel_size=(1,), stride=(1,))
+    (conv2): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+    (conv3): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+    (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (bn3): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    (fstn): STNkd(
+      (conv1): Conv1d(64, 64, kernel_size=(1,), stride=(1,))
+      (conv2): Conv1d(64, 128, kernel_size=(1,), stride=(1,))
+      (conv3): Conv1d(128, 1024, kernel_size=(1,), stride=(1,))
+      (bn1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (bn2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (bn3): BatchNorm1d(1024, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (fc1): Linear(in_features=1024, out_features=512, bias=True)
+      (fc2): Linear(in_features=512, out_features=256, bias=True)
+      (fc3): Linear(in_features=256, out_features=4096, bias=True)
+      (bn4): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      (bn5): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+    )
+  )
+  (fc1): Linear(in_features=1024, out_features=512, bias=True)
+  (fc2): Linear(in_features=512, out_features=256, bias=True)
+  (fc3): Linear(in_features=256, out_features=40, bias=True)
+  (bn1): BatchNorm1d(512, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (bn2): BatchNorm1d(256, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+  (dropout): Dropout(p=0.3, inplace=False)
+  (proj): ProjectionHead(
+    (net): Sequential(
+      (0): Linear(in_features=1024, out_features=256, bias=True)
+      (1): ReLU(inplace=True)
+      (2): Linear(in_features=256, out_features=128, bias=True)
+    )
+  )
+)
+[2025-09-23 10:07:59,642][contrast_train.py][line:362][INFO] Epoch [001/200] Train Loss: 4.2176 (CE 3.0418, Con 7.0087, RegionCon 4.0591, Reg 0.069005) | Train Acc: 0.1929 | Test Acc: 0.2111 | LR: 0.001000
+[2025-09-23 10:11:56,470][contrast_train.py][line:362][INFO] Epoch [002/200] Train Loss: 3.5245 (CE 2.4092, Con 6.7673, RegionCon 3.9219, Reg 0.046402) | Train Acc: 0.3293 | Test Acc: 0.3006 | LR: 0.001000
+[2025-09-23 10:15:55,108][contrast_train.py][line:362][INFO] Epoch [003/200] Train Loss: 3.2009 (CE 2.1125, Con 6.6708, RegionCon 3.8548, Reg 0.035874) | Train Acc: 0.4024 | Test Acc: 0.3959 | LR: 0.001000
+[2025-09-23 10:19:53,329][contrast_train.py][line:362][INFO] Epoch [004/200] Train Loss: 3.0014 (CE 1.9331, Con 6.5733, RegionCon 3.8180, Reg 0.029201) | Train Acc: 0.4467 | Test Acc: 0.3566 | LR: 0.001000
+[2025-09-23 10:23:53,577][contrast_train.py][line:362][INFO] Epoch [005/200] Train Loss: 2.8670 (CE 1.8118, Con 6.5073, RegionCon 3.7868, Reg 0.025842) | Train Acc: 0.4784 | Test Acc: 0.4222 | LR: 0.001000
+[2025-09-23 10:27:53,088][contrast_train.py][line:362][INFO] Epoch [006/200] Train Loss: 2.7696 (CE 1.7253, Con 6.4694, RegionCon 3.7327, Reg 0.024099) | Train Acc: 0.5035 | Test Acc: 0.4125 | LR: 0.001000
+[2025-09-23 10:31:50,326][contrast_train.py][line:362][INFO] Epoch [007/200] Train Loss: 2.6502 (CE 1.6177, Con 6.4048, RegionCon 3.7039, Reg 0.021624) | Train Acc: 0.5363 | Test Acc: 0.4412 | LR: 0.001000
+[2025-09-23 10:35:49,210][contrast_train.py][line:362][INFO] Epoch [008/200] Train Loss: 2.5987 (CE 1.5699, Con 6.3723, RegionCon 3.6919, Reg 0.022450) | Train Acc: 0.5446 | Test Acc: 0.5089 | LR: 0.001000
+[2025-09-23 10:39:45,988][contrast_train.py][line:362][INFO] Epoch [009/200] Train Loss: 2.5175 (CE 1.4933, Con 6.3352, RegionCon 3.6881, Reg 0.021836) | Train Acc: 0.5625 | Test Acc: 0.5494 | LR: 0.001000
+[2025-09-23 10:43:42,680][contrast_train.py][line:362][INFO] Epoch [010/200] Train Loss: 2.4681 (CE 1.4497, Con 6.2999, RegionCon 3.6674, Reg 0.021721) | Train Acc: 0.5749 | Test Acc: 0.5186 | LR: 0.001000
+[2025-09-23 10:47:38,383][contrast_train.py][line:362][INFO] Epoch [011/200] Train Loss: 2.3971 (CE 1.3816, Con 6.2791, RegionCon 3.6531, Reg 0.022243) | Train Acc: 0.5926 | Test Acc: 0.5470 | LR: 0.001000
+[2025-09-23 10:51:34,379][contrast_train.py][line:362][INFO] Epoch [012/200] Train Loss: 2.3343 (CE 1.3234, Con 6.2506, RegionCon 3.6447, Reg 0.021378) | Train Acc: 0.6072 | Test Acc: 0.5985 | LR: 0.001000
+[2025-09-23 10:55:30,948][contrast_train.py][line:362][INFO] Epoch [013/200] Train Loss: 2.3159 (CE 1.3055, Con 6.2303, RegionCon 3.6519, Reg 0.022096) | Train Acc: 0.6166 | Test Acc: 0.6139 | LR: 0.001000
+[2025-09-23 10:59:25,391][contrast_train.py][line:362][INFO] Epoch [014/200] Train Loss: 2.2325 (CE 1.2292, Con 6.1963, RegionCon 3.6327, Reg 0.020424) | Train Acc: 0.6333 | Test Acc: 0.5750 | LR: 0.001000
+[2025-09-23 11:03:23,696][contrast_train.py][line:362][INFO] Epoch [015/200] Train Loss: 2.2085 (CE 1.2058, Con 6.1702, RegionCon 3.6468, Reg 0.020971) | Train Acc: 0.6426 | Test Acc: 0.6171 | LR: 0.001000
+[2025-09-23 11:07:19,062][contrast_train.py][line:362][INFO] Epoch [016/200] Train Loss: 2.1689 (CE 1.1718, Con 6.1387, RegionCon 3.6236, Reg 0.020856) | Train Acc: 0.6479 | Test Acc: 0.6114 | LR: 0.001000
+[2025-09-23 11:11:14,238][contrast_train.py][line:362][INFO] Epoch [017/200] Train Loss: 2.1227 (CE 1.1285, Con 6.1150, RegionCon 3.6234, Reg 0.020324) | Train Acc: 0.6633 | Test Acc: 0.6341 | LR: 0.001000
+[2025-09-23 11:15:09,361][contrast_train.py][line:362][INFO] Epoch [018/200] Train Loss: 2.1237 (CE 1.1315, Con 6.0949, RegionCon 3.6240, Reg 0.020321) | Train Acc: 0.6522 | Test Acc: 0.6422 | LR: 0.001000
+[2025-09-23 11:19:04,139][contrast_train.py][line:362][INFO] Epoch [019/200] Train Loss: 2.0745 (CE 1.0880, Con 6.0551, RegionCon 3.6084, Reg 0.020159) | Train Acc: 0.6688 | Test Acc: 0.6143 | LR: 0.001000
+[2025-09-23 11:22:58,547][contrast_train.py][line:362][INFO] Epoch [020/200] Train Loss: 2.0606 (CE 1.0757, Con 6.0377, RegionCon 3.6085, Reg 0.020304) | Train Acc: 0.6773 | Test Acc: 0.6378 | LR: 0.000500
+[2025-09-23 11:26:55,871][contrast_train.py][line:362][INFO] Epoch [021/200] Train Loss: 1.9250 (CE 0.9504, Con 5.9451, RegionCon 3.6165, Reg 0.018390) | Train Acc: 0.7064 | Test Acc: 0.7233 | LR: 0.000500
+[2025-09-23 11:30:53,933][contrast_train.py][line:362][INFO] Epoch [022/200] Train Loss: 1.8768 (CE 0.9084, Con 5.9052, RegionCon 3.6032, Reg 0.017541) | Train Acc: 0.7208 | Test Acc: 0.7237 | LR: 0.000500
+[2025-09-23 11:34:51,349][contrast_train.py][line:362][INFO] Epoch [023/200] Train Loss: 1.8561 (CE 0.8924, Con 5.8711, RegionCon 3.6041, Reg 0.016241) | Train Acc: 0.7308 | Test Acc: 0.7196 | LR: 0.000500
+[2025-09-23 11:38:48,820][contrast_train.py][line:362][INFO] Epoch [024/200] Train Loss: 1.8387 (CE 0.8785, Con 5.8374, RegionCon 3.6066, Reg 0.015784) | Train Acc: 0.7332 | Test Acc: 0.7241 | LR: 0.000500
+[2025-09-23 11:42:43,595][contrast_train.py][line:362][INFO] Epoch [025/200] Train Loss: 1.8246 (CE 0.8662, Con 5.8185, RegionCon 3.6083, Reg 0.015721) | Train Acc: 0.7361 | Test Acc: 0.7220 | LR: 0.000500
+[2025-09-23 11:46:38,265][contrast_train.py][line:362][INFO] Epoch [026/200] Train Loss: 1.8197 (CE 0.8633, Con 5.8023, RegionCon 3.6021, Reg 0.015956) | Train Acc: 0.7357 | Test Acc: 0.7123 | LR: 0.000500
+[2025-09-23 11:50:32,559][contrast_train.py][line:362][INFO] Epoch [027/200] Train Loss: 1.7968 (CE 0.8431, Con 5.7756, RegionCon 3.6025, Reg 0.015936) | Train Acc: 0.7424 | Test Acc: 0.7496 | LR: 0.000500
+[2025-09-23 11:54:26,825][contrast_train.py][line:362][INFO] Epoch [028/200] Train Loss: 1.7721 (CE 0.8212, Con 5.7528, RegionCon 3.5984, Reg 0.015802) | Train Acc: 0.7462 | Test Acc: 0.6827 | LR: 0.000500
+[2025-09-23 11:58:24,641][contrast_train.py][line:362][INFO] Epoch [029/200] Train Loss: 1.7638 (CE 0.8155, Con 5.7314, RegionCon 3.6019, Reg 0.014894) | Train Acc: 0.7467 | Test Acc: 0.7164 | LR: 0.000500
+[2025-09-23 12:02:20,897][contrast_train.py][line:362][INFO] Epoch [030/200] Train Loss: 1.7536 (CE 0.8074, Con 5.7101, RegionCon 3.6011, Reg 0.015056) | Train Acc: 0.7499 | Test Acc: 0.7431 | LR: 0.000500
+[2025-09-23 12:06:19,283][contrast_train.py][line:362][INFO] Epoch [031/200] Train Loss: 1.7152 (CE 0.7721, Con 5.6839, RegionCon 3.5957, Reg 0.015097) | Train Acc: 0.7578 | Test Acc: 0.7630 | LR: 0.000500
+[2025-09-23 12:10:15,811][contrast_train.py][line:362][INFO] Epoch [032/200] Train Loss: 1.7154 (CE 0.7732, Con 5.6700, RegionCon 3.6006, Reg 0.015136) | Train Acc: 0.7608 | Test Acc: 0.7435 | LR: 0.000500
+[2025-09-23 12:14:11,566][contrast_train.py][line:362][INFO] Epoch [033/200] Train Loss: 1.7121 (CE 0.7723, Con 5.6512, RegionCon 3.5959, Reg 0.015074) | Train Acc: 0.7631 | Test Acc: 0.7577 | LR: 0.000500
+[2025-09-23 12:18:06,750][contrast_train.py][line:362][INFO] Epoch [034/200] Train Loss: 1.6851 (CE 0.7483, Con 5.6247, RegionCon 3.5991, Reg 0.014480) | Train Acc: 0.7685 | Test Acc: 0.7520 | LR: 0.000500
+[2025-09-23 12:22:02,219][contrast_train.py][line:362][INFO] Epoch [035/200] Train Loss: 1.6832 (CE 0.7481, Con 5.6033, RegionCon 3.6020, Reg 0.014571) | Train Acc: 0.7718 | Test Acc: 0.7565 | LR: 0.000500
+[2025-09-23 12:25:57,182][contrast_train.py][line:362][INFO] Epoch [036/200] Train Loss: 1.6561 (CE 0.7224, Con 5.5965, RegionCon 3.5932, Reg 0.014707) | Train Acc: 0.7752 | Test Acc: 0.7792 | LR: 0.000500
+[2025-09-23 12:29:51,950][contrast_train.py][line:362][INFO] Epoch [037/200] Train Loss: 1.6603 (CE 0.7279, Con 5.5812, RegionCon 3.5979, Reg 0.014506) | Train Acc: 0.7670 | Test Acc: 0.7618 | LR: 0.000500
+[2025-09-23 12:33:46,766][contrast_train.py][line:362][INFO] Epoch [038/200] Train Loss: 1.6434 (CE 0.7122, Con 5.5670, RegionCon 3.5993, Reg 0.014619) | Train Acc: 0.7819 | Test Acc: 0.7605 | LR: 0.000500
+[2025-09-23 12:37:41,668][contrast_train.py][line:362][INFO] Epoch [039/200] Train Loss: 1.6371 (CE 0.7084, Con 5.5581, RegionCon 3.5895, Reg 0.013990) | Train Acc: 0.7793 | Test Acc: 0.7605 | LR: 0.000500
+[2025-09-23 12:41:36,185][contrast_train.py][line:362][INFO] Epoch [040/200] Train Loss: 1.6256 (CE 0.6972, Con 5.5412, RegionCon 3.6017, Reg 0.014147) | Train Acc: 0.7833 | Test Acc: 0.7678 | LR: 0.000250
+[2025-09-23 12:45:30,873][contrast_train.py][line:362][INFO] Epoch [041/200] Train Loss: 1.5565 (CE 0.6331, Con 5.4996, RegionCon 3.5924, Reg 0.014221) | Train Acc: 0.7988 | Test Acc: 0.7804 | LR: 0.000250
+[2025-09-23 12:49:25,755][contrast_train.py][line:362][INFO] Epoch [042/200] Train Loss: 1.5329 (CE 0.6129, Con 5.4646, RegionCon 3.5968, Reg 0.013902) | Train Acc: 0.8065 | Test Acc: 0.7755 | LR: 0.000250
+[2025-09-23 12:53:21,035][contrast_train.py][line:362][INFO] Epoch [043/200] Train Loss: 1.5298 (CE 0.6106, Con 5.4519, RegionCon 3.6034, Reg 0.013609) | Train Acc: 0.8081 | Test Acc: 0.8092 | LR: 0.000250
+[2025-09-23 12:57:16,762][contrast_train.py][line:362][INFO] Epoch [044/200] Train Loss: 1.5255 (CE 0.6069, Con 5.4474, RegionCon 3.6018, Reg 0.013657) | Train Acc: 0.8106 | Test Acc: 0.7938 | LR: 0.000250
+[2025-09-23 13:01:12,668][contrast_train.py][line:362][INFO] Epoch [045/200] Train Loss: 1.4964 (CE 0.5803, Con 5.4327, RegionCon 3.5962, Reg 0.013235) | Train Acc: 0.8146 | Test Acc: 0.8059 | LR: 0.000250
+[2025-09-23 13:05:07,026][contrast_train.py][line:362][INFO] Epoch [046/200] Train Loss: 1.5056 (CE 0.5905, Con 5.4254, RegionCon 3.5948, Reg 0.013029) | Train Acc: 0.8125 | Test Acc: 0.7966 | LR: 0.000250
+[2025-09-23 13:09:01,853][contrast_train.py][line:362][INFO] Epoch [047/200] Train Loss: 1.5175 (CE 0.6006, Con 5.4374, RegionCon 3.5955, Reg 0.013600) | Train Acc: 0.8066 | Test Acc: 0.7893 | LR: 0.000250
+[2025-09-23 13:12:56,727][contrast_train.py][line:362][INFO] Epoch [048/200] Train Loss: 1.4965 (CE 0.5802, Con 5.4169, RegionCon 3.6093, Reg 0.013659) | Train Acc: 0.8184 | Test Acc: 0.8027 | LR: 0.000250
+[2025-09-23 13:16:51,482][contrast_train.py][line:362][INFO] Epoch [049/200] Train Loss: 1.5074 (CE 0.5903, Con 5.4347, RegionCon 3.5969, Reg 0.013883) | Train Acc: 0.8077 | Test Acc: 0.7998 | LR: 0.000250
+[2025-09-23 13:20:47,362][contrast_train.py][line:362][INFO] Epoch [050/200] Train Loss: 1.4846 (CE 0.5712, Con 5.4002, RegionCon 3.6026, Reg 0.013130) | Train Acc: 0.8194 | Test Acc: 0.8039 | LR: 0.000250
+[2025-09-23 13:24:43,331][contrast_train.py][line:362][INFO] Epoch [051/200] Train Loss: 1.4805 (CE 0.5672, Con 5.3929, RegionCon 3.6062, Reg 0.013350) | Train Acc: 0.8158 | Test Acc: 0.8023 | LR: 0.000250
+[2025-09-23 13:28:37,985][contrast_train.py][line:362][INFO] Epoch [052/200] Train Loss: 1.4603 (CE 0.5501, Con 5.3822, RegionCon 3.5894, Reg 0.013008) | Train Acc: 0.8207 | Test Acc: 0.8104 | LR: 0.000250
+[2025-09-23 13:32:31,915][contrast_train.py][line:362][INFO] Epoch [053/200] Train Loss: 1.4615 (CE 0.5500, Con 5.3827, RegionCon 3.6076, Reg 0.012462) | Train Acc: 0.8224 | Test Acc: 0.8039 | LR: 0.000250
+[2025-09-23 13:36:28,296][contrast_train.py][line:362][INFO] Epoch [054/200] Train Loss: 1.4570 (CE 0.5471, Con 5.3683, RegionCon 3.6039, Reg 0.012671) | Train Acc: 0.8271 | Test Acc: 0.8075 | LR: 0.000250
+[2025-09-23 13:40:24,016][contrast_train.py][line:362][INFO] Epoch [055/200] Train Loss: 1.4469 (CE 0.5393, Con 5.3632, RegionCon 3.5925, Reg 0.012124) | Train Acc: 0.8249 | Test Acc: 0.8051 | LR: 0.000250
+[2025-09-23 13:44:19,717][contrast_train.py][line:362][INFO] Epoch [056/200] Train Loss: 1.4412 (CE 0.5321, Con 5.3540, RegionCon 3.6119, Reg 0.012595) | Train Acc: 0.8278 | Test Acc: 0.7998 | LR: 0.000250
+[2025-09-23 13:48:15,511][contrast_train.py][line:362][INFO] Epoch [057/200] Train Loss: 1.4303 (CE 0.5224, Con 5.3565, RegionCon 3.5953, Reg 0.012682) | Train Acc: 0.8296 | Test Acc: 0.8031 | LR: 0.000250
+[2025-09-23 13:52:11,689][contrast_train.py][line:362][INFO] Epoch [058/200] Train Loss: 1.4362 (CE 0.5277, Con 5.3489, RegionCon 3.6089, Reg 0.012678) | Train Acc: 0.8306 | Test Acc: 0.8241 | LR: 0.000250
+[2025-09-23 13:56:06,950][contrast_train.py][line:362][INFO] Epoch [059/200] Train Loss: 1.4260 (CE 0.5185, Con 5.3458, RegionCon 3.6027, Reg 0.012589) | Train Acc: 0.8314 | Test Acc: 0.8140 | LR: 0.000250
+[2025-09-23 14:00:02,040][contrast_train.py][line:362][INFO] Epoch [060/200] Train Loss: 1.4338 (CE 0.5258, Con 5.3448, RegionCon 3.6061, Reg 0.012867) | Train Acc: 0.8286 | Test Acc: 0.8169 | LR: 0.000125
+[2025-09-23 14:03:58,229][contrast_train.py][line:362][INFO] Epoch [061/200] Train Loss: 1.3817 (CE 0.4785, Con 5.3137, RegionCon 3.6002, Reg 0.011761) | Train Acc: 0.8472 | Test Acc: 0.8205 | LR: 0.000125
+[2025-09-23 14:07:52,782][contrast_train.py][line:362][INFO] Epoch [062/200] Train Loss: 1.3776 (CE 0.4749, Con 5.2986, RegionCon 3.6081, Reg 0.012055) | Train Acc: 0.8448 | Test Acc: 0.8201 | LR: 0.000125
+[2025-09-23 14:11:49,712][contrast_train.py][line:362][INFO] Epoch [063/200] Train Loss: 1.3621 (CE 0.4614, Con 5.2910, RegionCon 3.5987, Reg 0.011665) | Train Acc: 0.8507 | Test Acc: 0.8290 | LR: 0.000125
+[2025-09-23 14:15:45,503][contrast_train.py][line:362][INFO] Epoch [064/200] Train Loss: 1.3638 (CE 0.4626, Con 5.2947, RegionCon 3.5965, Reg 0.012055) | Train Acc: 0.8457 | Test Acc: 0.8104 | LR: 0.000125
+[2025-09-23 14:19:42,694][contrast_train.py][line:362][INFO] Epoch [065/200] Train Loss: 1.3458 (CE 0.4456, Con 5.2811, RegionCon 3.6045, Reg 0.011640) | Train Acc: 0.8552 | Test Acc: 0.8274 | LR: 0.000125
+[2025-09-23 14:23:37,373][contrast_train.py][line:362][INFO] Epoch [066/200] Train Loss: 1.3573 (CE 0.4561, Con 5.2860, RegionCon 3.6090, Reg 0.011700) | Train Acc: 0.8456 | Test Acc: 0.8213 | LR: 0.000125
+[2025-09-23 14:27:32,480][contrast_train.py][line:362][INFO] Epoch [067/200] Train Loss: 1.3505 (CE 0.4522, Con 5.2687, RegionCon 3.6029, Reg 0.011143) | Train Acc: 0.8495 | Test Acc: 0.8258 | LR: 0.000125
+[2025-09-23 14:31:28,240][contrast_train.py][line:362][INFO] Epoch [068/200] Train Loss: 1.3468 (CE 0.4479, Con 5.2706, RegionCon 3.6033, Reg 0.011575) | Train Acc: 0.8498 | Test Acc: 0.8156 | LR: 0.000125
+[2025-09-23 14:35:24,075][contrast_train.py][line:362][INFO] Epoch [069/200] Train Loss: 1.3437 (CE 0.4456, Con 5.2640, RegionCon 3.6031, Reg 0.011324) | Train Acc: 0.8541 | Test Acc: 0.8318 | LR: 0.000125
+[2025-09-23 14:39:28,839][contrast_train.py][line:362][INFO] Epoch [070/200] Train Loss: 1.3471 (CE 0.4493, Con 5.2649, RegionCon 3.6011, Reg 0.011250) | Train Acc: 0.8539 | Test Acc: 0.8201 | LR: 0.000125
+[2025-09-23 14:44:23,636][contrast_train.py][line:362][INFO] Epoch [071/200] Train Loss: 1.3239 (CE 0.4264, Con 5.2588, RegionCon 3.6042, Reg 0.011175) | Train Acc: 0.8568 | Test Acc: 0.8217 | LR: 0.000125
+[2025-09-23 14:48:19,855][contrast_train.py][line:362][INFO] Epoch [072/200] Train Loss: 1.3276 (CE 0.4311, Con 5.2507, RegionCon 3.6054, Reg 0.010831) | Train Acc: 0.8546 | Test Acc: 0.8221 | LR: 0.000125
+[2025-09-23 14:52:16,076][contrast_train.py][line:362][INFO] Epoch [073/200] Train Loss: 1.3278 (CE 0.4322, Con 5.2507, RegionCon 3.5972, Reg 0.010838) | Train Acc: 0.8556 | Test Acc: 0.8185 | LR: 0.000125
+[2025-09-23 14:56:12,141][contrast_train.py][line:362][INFO] Epoch [074/200] Train Loss: 1.3229 (CE 0.4256, Con 5.2497, RegionCon 3.6109, Reg 0.011175) | Train Acc: 0.8595 | Test Acc: 0.8262 | LR: 0.000125
+[2025-09-23 15:00:08,417][contrast_train.py][line:362][INFO] Epoch [075/200] Train Loss: 1.3282 (CE 0.4312, Con 5.2518, RegionCon 3.6098, Reg 0.010895) | Train Acc: 0.8569 | Test Acc: 0.8286 | LR: 0.000125
+[2025-09-23 15:04:04,191][contrast_train.py][line:362][INFO] Epoch [076/200] Train Loss: 1.3249 (CE 0.4277, Con 5.2499, RegionCon 3.6134, Reg 0.010843) | Train Acc: 0.8623 | Test Acc: 0.8274 | LR: 0.000125
+[2025-09-23 15:08:01,218][contrast_train.py][line:362][INFO] Epoch [077/200] Train Loss: 1.3308 (CE 0.4345, Con 5.2461, RegionCon 3.6039, Reg 0.011253) | Train Acc: 0.8586 | Test Acc: 0.8254 | LR: 0.000125
+[2025-09-23 15:12:00,972][contrast_train.py][line:362][INFO] Epoch [078/200] Train Loss: 1.3068 (CE 0.4124, Con 5.2334, RegionCon 3.6046, Reg 0.010532) | Train Acc: 0.8626 | Test Acc: 0.8258 | LR: 0.000125
+[2025-09-23 15:15:58,991][contrast_train.py][line:362][INFO] Epoch [079/200] Train Loss: 1.3185 (CE 0.4231, Con 5.2412, RegionCon 3.6034, Reg 0.010906) | Train Acc: 0.8652 | Test Acc: 0.8278 | LR: 0.000125
+[2025-09-23 15:19:55,872][contrast_train.py][line:362][INFO] Epoch [080/200] Train Loss: 1.3017 (CE 0.4062, Con 5.2367, RegionCon 3.6076, Reg 0.011049) | Train Acc: 0.8611 | Test Acc: 0.8278 | LR: 0.000063
+[2025-09-23 15:23:53,753][contrast_train.py][line:362][INFO] Epoch [081/200] Train Loss: 1.2938 (CE 0.3992, Con 5.2312, RegionCon 3.6065, Reg 0.010778) | Train Acc: 0.8694 | Test Acc: 0.8185 | LR: 0.000063
+[2025-09-23 15:27:50,813][contrast_train.py][line:362][INFO] Epoch [082/200] Train Loss: 1.2876 (CE 0.3955, Con 5.2159, RegionCon 3.6019, Reg 0.010377) | Train Acc: 0.8698 | Test Acc: 0.8290 | LR: 0.000063
+[2025-09-23 15:31:47,927][contrast_train.py][line:362][INFO] Epoch [083/200] Train Loss: 1.2861 (CE 0.3930, Con 5.2190, RegionCon 3.6032, Reg 0.010839) | Train Acc: 0.8724 | Test Acc: 0.8254 | LR: 0.000063
+[2025-09-23 15:35:44,176][contrast_train.py][line:362][INFO] Epoch [084/200] Train Loss: 1.2761 (CE 0.3835, Con 5.2133, RegionCon 3.6093, Reg 0.010357) | Train Acc: 0.8737 | Test Acc: 0.8286 | LR: 0.000063
+[2025-09-23 15:39:44,777][contrast_train.py][line:362][INFO] Epoch [085/200] Train Loss: 1.2852 (CE 0.3923, Con 5.2205, RegionCon 3.6011, Reg 0.010782) | Train Acc: 0.8692 | Test Acc: 0.8331 | LR: 0.000063
+[2025-09-23 15:43:42,907][contrast_train.py][line:362][INFO] Epoch [086/200] Train Loss: 1.2772 (CE 0.3862, Con 5.2126, RegionCon 3.5913, Reg 0.010650) | Train Acc: 0.8698 | Test Acc: 0.8375 | LR: 0.000063
+[2025-09-23 15:47:40,429][contrast_train.py][line:362][INFO] Epoch [087/200] Train Loss: 1.2693 (CE 0.3779, Con 5.2026, RegionCon 3.6057, Reg 0.010660) | Train Acc: 0.8724 | Test Acc: 0.8314 | LR: 0.000063
+[2025-09-23 15:51:39,369][contrast_train.py][line:362][INFO] Epoch [088/200] Train Loss: 1.2688 (CE 0.3757, Con 5.2072, RegionCon 3.6165, Reg 0.010739) | Train Acc: 0.8748 | Test Acc: 0.8318 | LR: 0.000063
+[2025-09-23 15:55:38,729][contrast_train.py][line:362][INFO] Epoch [089/200] Train Loss: 1.2696 (CE 0.3782, Con 5.2068, RegionCon 3.6006, Reg 0.010637) | Train Acc: 0.8746 | Test Acc: 0.8286 | LR: 0.000063
+[2025-09-23 15:59:38,064][contrast_train.py][line:362][INFO] Epoch [090/200] Train Loss: 1.2626 (CE 0.3714, Con 5.2017, RegionCon 3.6060, Reg 0.010517) | Train Acc: 0.8745 | Test Acc: 0.8379 | LR: 0.000063
+[2025-09-23 16:03:37,948][contrast_train.py][line:362][INFO] Epoch [091/200] Train Loss: 1.2622 (CE 0.3714, Con 5.1942, RegionCon 3.6089, Reg 0.010448) | Train Acc: 0.8756 | Test Acc: 0.8306 | LR: 0.000063
+[2025-09-23 16:07:35,310][contrast_train.py][line:362][INFO] Epoch [092/200] Train Loss: 1.2691 (CE 0.3778, Con 5.2005, RegionCon 3.6062, Reg 0.010634) | Train Acc: 0.8743 | Test Acc: 0.8286 | LR: 0.000063
+[2025-09-23 16:11:32,634][contrast_train.py][line:362][INFO] Epoch [093/200] Train Loss: 1.2624 (CE 0.3730, Con 5.1994, RegionCon 3.5877, Reg 0.010696) | Train Acc: 0.8780 | Test Acc: 0.8306 | LR: 0.000063
+[2025-09-23 16:15:31,081][contrast_train.py][line:362][INFO] Epoch [094/200] Train Loss: 1.2549 (CE 0.3650, Con 5.1916, RegionCon 3.6044, Reg 0.010358) | Train Acc: 0.8761 | Test Acc: 0.8327 | LR: 0.000063
+[2025-09-23 16:19:29,495][contrast_train.py][line:362][INFO] Epoch [095/200] Train Loss: 1.2599 (CE 0.3687, Con 5.1909, RegionCon 3.6174, Reg 0.010362) | Train Acc: 0.8736 | Test Acc: 0.8343 | LR: 0.000063
+[2025-09-23 16:23:31,327][contrast_train.py][line:362][INFO] Epoch [096/200] Train Loss: 1.2589 (CE 0.3694, Con 5.1846, RegionCon 3.6063, Reg 0.010332) | Train Acc: 0.8766 | Test Acc: 0.8379 | LR: 0.000063
+[2025-09-23 16:27:30,483][contrast_train.py][line:362][INFO] Epoch [097/200] Train Loss: 1.2509 (CE 0.3616, Con 5.1879, RegionCon 3.6034, Reg 0.010169) | Train Acc: 0.8775 | Test Acc: 0.8302 | LR: 0.000063
+[2025-09-23 16:31:32,577][contrast_train.py][line:362][INFO] Epoch [098/200] Train Loss: 1.2554 (CE 0.3658, Con 5.1846, RegionCon 3.6069, Reg 0.010433) | Train Acc: 0.8758 | Test Acc: 0.8306 | LR: 0.000063
+[2025-09-23 16:35:31,968][contrast_train.py][line:362][INFO] Epoch [099/200] Train Loss: 1.2545 (CE 0.3662, Con 5.1767, RegionCon 3.6050, Reg 0.010077) | Train Acc: 0.8752 | Test Acc: 0.8404 | LR: 0.000063
+[2025-09-23 16:39:31,203][contrast_train.py][line:362][INFO] Epoch [100/200] Train Loss: 1.2595 (CE 0.3710, Con 5.1811, RegionCon 3.6021, Reg 0.010221) | Train Acc: 0.8753 | Test Acc: 0.8363 | LR: 0.000031
+[2025-09-23 16:43:30,084][contrast_train.py][line:362][INFO] Epoch [101/200] Train Loss: 1.2394 (CE 0.3506, Con 5.1746, RegionCon 3.6099, Reg 0.010413) | Train Acc: 0.8803 | Test Acc: 0.8290 | LR: 0.000031
+[2025-09-23 16:47:28,445][contrast_train.py][line:362][INFO] Epoch [102/200] Train Loss: 1.2356 (CE 0.3473, Con 5.1751, RegionCon 3.6056, Reg 0.010307) | Train Acc: 0.8866 | Test Acc: 0.8294 | LR: 0.000031
+[2025-09-23 16:51:28,472][contrast_train.py][line:362][INFO] Epoch [103/200] Train Loss: 1.2399 (CE 0.3509, Con 5.1777, RegionCon 3.6064, Reg 0.010563) | Train Acc: 0.8823 | Test Acc: 0.8318 | LR: 0.000031
+[2025-09-23 16:55:26,137][contrast_train.py][line:362][INFO] Epoch [104/200] Train Loss: 1.2440 (CE 0.3555, Con 5.1781, RegionCon 3.6027, Reg 0.010414) | Train Acc: 0.8805 | Test Acc: 0.8221 | LR: 0.000031
+[2025-09-23 16:59:24,302][contrast_train.py][line:362][INFO] Epoch [105/200] Train Loss: 1.2262 (CE 0.3380, Con 5.1764, RegionCon 3.6027, Reg 0.010283) | Train Acc: 0.8890 | Test Acc: 0.8375 | LR: 0.000031
+[2025-09-23 17:03:20,847][contrast_train.py][line:362][INFO] Epoch [106/200] Train Loss: 1.2332 (CE 0.3455, Con 5.1729, RegionCon 3.6011, Reg 0.010291) | Train Acc: 0.8840 | Test Acc: 0.8347 | LR: 0.000031
+[2025-09-23 17:07:18,328][contrast_train.py][line:362][INFO] Epoch [107/200] Train Loss: 1.2376 (CE 0.3499, Con 5.1662, RegionCon 3.6098, Reg 0.010138) | Train Acc: 0.8855 | Test Acc: 0.8339 | LR: 0.000031
+[2025-09-23 17:11:16,711][contrast_train.py][line:362][INFO] Epoch [108/200] Train Loss: 1.2327 (CE 0.3444, Con 5.1711, RegionCon 3.6105, Reg 0.010193) | Train Acc: 0.8838 | Test Acc: 0.8335 | LR: 0.000031
+[2025-09-23 17:15:15,939][contrast_train.py][line:362][INFO] Epoch [109/200] Train Loss: 1.2288 (CE 0.3425, Con 5.1657, RegionCon 3.5965, Reg 0.010064) | Train Acc: 0.8866 | Test Acc: 0.8331 | LR: 0.000031
+[2025-09-23 17:19:13,100][contrast_train.py][line:362][INFO] Epoch [110/200] Train Loss: 1.2336 (CE 0.3456, Con 5.1707, RegionCon 3.6085, Reg 0.010109) | Train Acc: 0.8822 | Test Acc: 0.8323 | LR: 0.000031
+[2025-09-23 17:23:09,828][contrast_train.py][line:362][INFO] Epoch [111/200] Train Loss: 1.2385 (CE 0.3514, Con 5.1626, RegionCon 3.6080, Reg 0.010007) | Train Acc: 0.8775 | Test Acc: 0.8318 | LR: 0.000031
+[2025-09-23 17:27:07,516][contrast_train.py][line:362][INFO] Epoch [112/200] Train Loss: 1.2245 (CE 0.3378, Con 5.1601, RegionCon 3.6051, Reg 0.010171) | Train Acc: 0.8864 | Test Acc: 0.8318 | LR: 0.000031
+[2025-09-23 17:31:04,600][contrast_train.py][line:362][INFO] Epoch [113/200] Train Loss: 1.2259 (CE 0.3391, Con 5.1606, RegionCon 3.6093, Reg 0.009876) | Train Acc: 0.8860 | Test Acc: 0.8294 | LR: 0.000031
+[2025-09-23 17:35:01,761][contrast_train.py][line:362][INFO] Epoch [114/200] Train Loss: 1.2274 (CE 0.3411, Con 5.1595, RegionCon 3.6041, Reg 0.009939) | Train Acc: 0.8867 | Test Acc: 0.8250 | LR: 0.000031
+[2025-09-23 17:38:57,887][contrast_train.py][line:362][INFO] Epoch [115/200] Train Loss: 1.2252 (CE 0.3380, Con 5.1633, RegionCon 3.6071, Reg 0.010091) | Train Acc: 0.8871 | Test Acc: 0.8282 | LR: 0.000031
+[2025-09-23 17:42:54,496][contrast_train.py][line:362][INFO] Epoch [116/200] Train Loss: 1.2259 (CE 0.3394, Con 5.1625, RegionCon 3.6022, Reg 0.010030) | Train Acc: 0.8834 | Test Acc: 0.8335 | LR: 0.000031
+[2025-09-23 17:46:51,479][contrast_train.py][line:362][INFO] Epoch [117/200] Train Loss: 1.2210 (CE 0.3338, Con 5.1609, RegionCon 3.6117, Reg 0.009999) | Train Acc: 0.8873 | Test Acc: 0.8347 | LR: 0.000031
+[2025-09-23 17:50:50,048][contrast_train.py][line:362][INFO] Epoch [118/200] Train Loss: 1.2209 (CE 0.3344, Con 5.1534, RegionCon 3.6124, Reg 0.009886) | Train Acc: 0.8872 | Test Acc: 0.8339 | LR: 0.000031
+[2025-09-23 17:54:46,591][contrast_train.py][line:362][INFO] Epoch [119/200] Train Loss: 1.2179 (CE 0.3313, Con 5.1486, RegionCon 3.6186, Reg 0.009833) | Train Acc: 0.8883 | Test Acc: 0.8359 | LR: 0.000031
+[2025-09-23 17:58:42,881][contrast_train.py][line:362][INFO] Epoch [120/200] Train Loss: 1.2211 (CE 0.3346, Con 5.1601, RegionCon 3.6034, Reg 0.010158) | Train Acc: 0.8866 | Test Acc: 0.8347 | LR: 0.000016
+[2025-09-23 18:02:38,992][contrast_train.py][line:362][INFO] Epoch [121/200] Train Loss: 1.2153 (CE 0.3296, Con 5.1551, RegionCon 3.6036, Reg 0.009855) | Train Acc: 0.8887 | Test Acc: 0.8302 | LR: 0.000016
+[2025-09-23 18:06:35,985][contrast_train.py][line:362][INFO] Epoch [122/200] Train Loss: 1.2129 (CE 0.3269, Con 5.1543, RegionCon 3.6075, Reg 0.009850) | Train Acc: 0.8917 | Test Acc: 0.8282 | LR: 0.000016
+[2025-09-23 18:10:36,102][contrast_train.py][line:362][INFO] Epoch [123/200] Train Loss: 1.2117 (CE 0.3261, Con 5.1502, RegionCon 3.6062, Reg 0.009878) | Train Acc: 0.8872 | Test Acc: 0.8404 | LR: 0.000016
+[2025-09-23 18:14:33,924][contrast_train.py][line:362][INFO] Epoch [124/200] Train Loss: 1.2101 (CE 0.3237, Con 5.1540, RegionCon 3.6092, Reg 0.010106) | Train Acc: 0.8887 | Test Acc: 0.8412 | LR: 0.000016
+[2025-09-23 18:18:29,762][contrast_train.py][line:362][INFO] Epoch [125/200] Train Loss: 1.2246 (CE 0.3375, Con 5.1525, RegionCon 3.6190, Reg 0.009938) | Train Acc: 0.8870 | Test Acc: 0.8387 | LR: 0.000016
+[2025-09-23 18:22:26,756][contrast_train.py][line:362][INFO] Epoch [126/200] Train Loss: 1.2162 (CE 0.3314, Con 5.1486, RegionCon 3.6025, Reg 0.009695) | Train Acc: 0.8900 | Test Acc: 0.8335 | LR: 0.000016
+[2025-09-23 18:26:23,111][contrast_train.py][line:362][INFO] Epoch [127/200] Train Loss: 1.2069 (CE 0.3215, Con 5.1491, RegionCon 3.6051, Reg 0.009969) | Train Acc: 0.8912 | Test Acc: 0.8367 | LR: 0.000016
+[2025-09-23 18:30:19,585][contrast_train.py][line:362][INFO] Epoch [128/200] Train Loss: 1.2174 (CE 0.3320, Con 5.1510, RegionCon 3.6040, Reg 0.009872) | Train Acc: 0.8882 | Test Acc: 0.8327 | LR: 0.000016
+[2025-09-23 18:34:18,189][contrast_train.py][line:362][INFO] Epoch [129/200] Train Loss: 1.2109 (CE 0.3253, Con 5.1550, RegionCon 3.6010, Reg 0.009981) | Train Acc: 0.8913 | Test Acc: 0.8306 | LR: 0.000016
+[2025-09-23 18:38:17,454][contrast_train.py][line:362][INFO] Epoch [130/200] Train Loss: 1.2108 (CE 0.3259, Con 5.1480, RegionCon 3.6046, Reg 0.009631) | Train Acc: 0.8894 | Test Acc: 0.8278 | LR: 0.000016
+[2025-09-23 18:42:16,647][contrast_train.py][line:362][INFO] Epoch [131/200] Train Loss: 1.2073 (CE 0.3215, Con 5.1499, RegionCon 3.6104, Reg 0.009756) | Train Acc: 0.8911 | Test Acc: 0.8351 | LR: 0.000016
+[2025-09-23 18:46:14,762][contrast_train.py][line:362][INFO] Epoch [132/200] Train Loss: 1.2125 (CE 0.3272, Con 5.1523, RegionCon 3.6007, Reg 0.009987) | Train Acc: 0.8890 | Test Acc: 0.8298 | LR: 0.000016
+[2025-09-23 18:50:12,963][contrast_train.py][line:362][INFO] Epoch [133/200] Train Loss: 1.2038 (CE 0.3185, Con 5.1472, RegionCon 3.6075, Reg 0.009845) | Train Acc: 0.8918 | Test Acc: 0.8310 | LR: 0.000016
+[2025-09-23 18:54:11,993][contrast_train.py][line:362][INFO] Epoch [134/200] Train Loss: 1.2073 (CE 0.3223, Con 5.1401, RegionCon 3.6147, Reg 0.009463) | Train Acc: 0.8907 | Test Acc: 0.8343 | LR: 0.000016
+[2025-09-23 18:58:09,902][contrast_train.py][line:362][INFO] Epoch [135/200] Train Loss: 1.2034 (CE 0.3192, Con 5.1398, RegionCon 3.6044, Reg 0.009803) | Train Acc: 0.8934 | Test Acc: 0.8302 | LR: 0.000016
+[2025-09-23 19:02:08,632][contrast_train.py][line:362][INFO] Epoch [136/200] Train Loss: 1.2106 (CE 0.3252, Con 5.1507, RegionCon 3.6048, Reg 0.009899) | Train Acc: 0.8927 | Test Acc: 0.8254 | LR: 0.000016
+[2025-09-23 19:06:05,419][contrast_train.py][line:362][INFO] Epoch [137/200] Train Loss: 1.2092 (CE 0.3243, Con 5.1468, RegionCon 3.6045, Reg 0.009746) | Train Acc: 0.8887 | Test Acc: 0.8371 | LR: 0.000016
+[2025-09-23 19:10:02,395][contrast_train.py][line:362][INFO] Epoch [138/200] Train Loss: 1.2094 (CE 0.3244, Con 5.1460, RegionCon 3.6057, Reg 0.009847) | Train Acc: 0.8899 | Test Acc: 0.8274 | LR: 0.000016
+[2025-09-23 19:13:57,552][contrast_train.py][line:362][INFO] Epoch [139/200] Train Loss: 1.2097 (CE 0.3253, Con 5.1412, RegionCon 3.6053, Reg 0.009769) | Train Acc: 0.8931 | Test Acc: 0.8282 | LR: 0.000016
+[2025-09-23 19:17:53,354][contrast_train.py][line:362][INFO] Epoch [140/200] Train Loss: 1.2011 (CE 0.3176, Con 5.1394, RegionCon 3.5995, Reg 0.009664) | Train Acc: 0.8911 | Test Acc: 0.8294 | LR: 0.000008
+[2025-09-23 19:21:50,028][contrast_train.py][line:362][INFO] Epoch [141/200] Train Loss: 1.2020 (CE 0.3165, Con 5.1434, RegionCon 3.6142, Reg 0.009719) | Train Acc: 0.8943 | Test Acc: 0.8375 | LR: 0.000008
+[2025-09-23 19:25:46,780][contrast_train.py][line:362][INFO] Epoch [142/200] Train Loss: 1.1988 (CE 0.3143, Con 5.1445, RegionCon 3.6011, Reg 0.009930) | Train Acc: 0.8961 | Test Acc: 0.8318 | LR: 0.000008
+[2025-09-23 19:29:43,996][contrast_train.py][line:362][INFO] Epoch [143/200] Train Loss: 1.1991 (CE 0.3138, Con 5.1420, RegionCon 3.6118, Reg 0.009851) | Train Acc: 0.8938 | Test Acc: 0.8351 | LR: 0.000008
+[2025-09-23 19:33:42,187][contrast_train.py][line:362][INFO] Epoch [144/200] Train Loss: 1.2036 (CE 0.3188, Con 5.1400, RegionCon 3.6112, Reg 0.009620) | Train Acc: 0.8916 | Test Acc: 0.8314 | LR: 0.000008
+[2025-09-23 19:37:39,094][contrast_train.py][line:362][INFO] Epoch [145/200] Train Loss: 1.2010 (CE 0.3170, Con 5.1372, RegionCon 3.6055, Reg 0.009740) | Train Acc: 0.8899 | Test Acc: 0.8416 | LR: 0.000008
+[2025-09-23 19:41:36,222][contrast_train.py][line:362][INFO] Epoch [146/200] Train Loss: 1.2038 (CE 0.3202, Con 5.1374, RegionCon 3.6021, Reg 0.009615) | Train Acc: 0.8900 | Test Acc: 0.8327 | LR: 0.000008
+[2025-09-23 19:45:32,279][contrast_train.py][line:362][INFO] Epoch [147/200] Train Loss: 1.2057 (CE 0.3211, Con 5.1433, RegionCon 3.6032, Reg 0.009944) | Train Acc: 0.8881 | Test Acc: 0.8371 | LR: 0.000008
+[2025-09-23 19:49:28,703][contrast_train.py][line:362][INFO] Epoch [148/200] Train Loss: 1.1997 (CE 0.3160, Con 5.1412, RegionCon 3.6005, Reg 0.009562) | Train Acc: 0.8941 | Test Acc: 0.8420 | LR: 0.000008
+[2025-09-23 19:53:24,656][contrast_train.py][line:362][INFO] Epoch [149/200] Train Loss: 1.1995 (CE 0.3147, Con 5.1400, RegionCon 3.6120, Reg 0.009564) | Train Acc: 0.8880 | Test Acc: 0.8185 | LR: 0.000008
+[2025-09-23 19:57:21,901][contrast_train.py][line:362][INFO] Epoch [150/200] Train Loss: 1.1968 (CE 0.3124, Con 5.1390, RegionCon 3.6090, Reg 0.009578) | Train Acc: 0.8922 | Test Acc: 0.8367 | LR: 0.000008
+[2025-09-23 20:01:20,531][contrast_train.py][line:362][INFO] Epoch [151/200] Train Loss: 1.2001 (CE 0.3161, Con 5.1395, RegionCon 3.6039, Reg 0.009675) | Train Acc: 0.8917 | Test Acc: 0.8314 | LR: 0.000008
+[2025-09-23 20:05:17,742][contrast_train.py][line:362][INFO] Epoch [152/200] Train Loss: 1.1943 (CE 0.3106, Con 5.1357, RegionCon 3.6068, Reg 0.009443) | Train Acc: 0.8926 | Test Acc: 0.8351 | LR: 0.000008
+[2025-09-23 20:09:12,968][contrast_train.py][line:362][INFO] Epoch [153/200] Train Loss: 1.1999 (CE 0.3155, Con 5.1432, RegionCon 3.6050, Reg 0.009645) | Train Acc: 0.8936 | Test Acc: 0.8266 | LR: 0.000008
+[2025-09-23 20:13:09,649][contrast_train.py][line:362][INFO] Epoch [154/200] Train Loss: 1.2017 (CE 0.3178, Con 5.1375, RegionCon 3.6049, Reg 0.009695) | Train Acc: 0.8907 | Test Acc: 0.8339 | LR: 0.000008
+[2025-09-23 20:17:06,100][contrast_train.py][line:362][INFO] Epoch [155/200] Train Loss: 1.1980 (CE 0.3157, Con 5.1366, RegionCon 3.5906, Reg 0.009584) | Train Acc: 0.8924 | Test Acc: 0.8347 | LR: 0.000008
+[2025-09-23 20:21:02,035][contrast_train.py][line:362][INFO] Epoch [156/200] Train Loss: 1.1980 (CE 0.3137, Con 5.1406, RegionCon 3.6060, Reg 0.009671) | Train Acc: 0.8925 | Test Acc: 0.8404 | LR: 0.000008
+[2025-09-23 20:24:59,305][contrast_train.py][line:362][INFO] Epoch [157/200] Train Loss: 1.2027 (CE 0.3184, Con 5.1370, RegionCon 3.6112, Reg 0.009492) | Train Acc: 0.8925 | Test Acc: 0.8379 | LR: 0.000008
+[2025-09-23 20:28:55,873][contrast_train.py][line:362][INFO] Epoch [158/200] Train Loss: 1.2014 (CE 0.3171, Con 5.1395, RegionCon 3.6092, Reg 0.009440) | Train Acc: 0.8937 | Test Acc: 0.8310 | LR: 0.000008
+[2025-09-23 20:32:52,868][contrast_train.py][line:362][INFO] Epoch [159/200] Train Loss: 1.1983 (CE 0.3145, Con 5.1372, RegionCon 3.6040, Reg 0.009652) | Train Acc: 0.8948 | Test Acc: 0.8347 | LR: 0.000008
+[2025-09-23 20:36:48,777][contrast_train.py][line:362][INFO] Epoch [160/200] Train Loss: 1.1974 (CE 0.3129, Con 5.1425, RegionCon 3.6047, Reg 0.009759) | Train Acc: 0.8930 | Test Acc: 0.8314 | LR: 0.000004
+[2025-09-23 20:40:45,115][contrast_train.py][line:362][INFO] Epoch [161/200] Train Loss: 1.2033 (CE 0.3177, Con 5.1436, RegionCon 3.6154, Reg 0.009693) | Train Acc: 0.8939 | Test Acc: 0.8412 | LR: 0.000004
+[2025-09-23 20:44:41,391][contrast_train.py][line:362][INFO] Epoch [162/200] Train Loss: 1.1978 (CE 0.3133, Con 5.1459, RegionCon 3.6007, Reg 0.009854) | Train Acc: 0.8946 | Test Acc: 0.8367 | LR: 0.000004
+[2025-09-23 20:48:37,515][contrast_train.py][line:362][INFO] Epoch [163/200] Train Loss: 1.2065 (CE 0.3213, Con 5.1412, RegionCon 3.6143, Reg 0.009725) | Train Acc: 0.8938 | Test Acc: 0.8416 | LR: 0.000004
+[2025-09-23 20:52:35,237][contrast_train.py][line:362][INFO] Epoch [164/200] Train Loss: 1.2000 (CE 0.3153, Con 5.1476, RegionCon 3.6011, Reg 0.009774) | Train Acc: 0.8932 | Test Acc: 0.8408 | LR: 0.000004
+[2025-09-23 20:56:30,947][contrast_train.py][line:362][INFO] Epoch [165/200] Train Loss: 1.2014 (CE 0.3169, Con 5.1388, RegionCon 3.6102, Reg 0.009579) | Train Acc: 0.8902 | Test Acc: 0.8339 | LR: 0.000004
+[2025-09-23 21:00:26,686][contrast_train.py][line:362][INFO] Epoch [166/200] Train Loss: 1.1980 (CE 0.3145, Con 5.1326, RegionCon 3.6079, Reg 0.009439) | Train Acc: 0.8918 | Test Acc: 0.8347 | LR: 0.000004
+[2025-09-23 21:04:24,108][contrast_train.py][line:362][INFO] Epoch [167/200] Train Loss: 1.1972 (CE 0.3143, Con 5.1335, RegionCon 3.6009, Reg 0.009478) | Train Acc: 0.8995 | Test Acc: 0.8367 | LR: 0.000004
+[2025-09-23 21:08:21,030][contrast_train.py][line:362][INFO] Epoch [168/200] Train Loss: 1.1921 (CE 0.3080, Con 5.1381, RegionCon 3.6037, Reg 0.009895) | Train Acc: 0.8956 | Test Acc: 0.8424 | LR: 0.000004
+[2025-09-23 21:12:19,188][contrast_train.py][line:362][INFO] Epoch [169/200] Train Loss: 1.1987 (CE 0.3141, Con 5.1429, RegionCon 3.6038, Reg 0.009949) | Train Acc: 0.8943 | Test Acc: 0.8359 | LR: 0.000004
+[2025-09-23 21:16:13,483][contrast_train.py][line:362][INFO] Epoch [170/200] Train Loss: 1.1984 (CE 0.3147, Con 5.1364, RegionCon 3.6024, Reg 0.009756) | Train Acc: 0.8942 | Test Acc: 0.8266 | LR: 0.000004
+[2025-09-23 21:20:10,122][contrast_train.py][line:362][INFO] Epoch [171/200] Train Loss: 1.2024 (CE 0.3184, Con 5.1356, RegionCon 3.6098, Reg 0.009471) | Train Acc: 0.8910 | Test Acc: 0.8351 | LR: 0.000004
+[2025-09-23 21:24:05,915][contrast_train.py][line:362][INFO] Epoch [172/200] Train Loss: 1.1908 (CE 0.3063, Con 5.1442, RegionCon 3.6034, Reg 0.009666) | Train Acc: 0.8959 | Test Acc: 0.8343 | LR: 0.000004
+[2025-09-23 21:28:02,676][contrast_train.py][line:362][INFO] Epoch [173/200] Train Loss: 1.1952 (CE 0.3106, Con 5.1413, RegionCon 3.6097, Reg 0.009497) | Train Acc: 0.8966 | Test Acc: 0.8400 | LR: 0.000004
+[2025-09-23 21:31:59,921][contrast_train.py][line:362][INFO] Epoch [174/200] Train Loss: 1.1927 (CE 0.3092, Con 5.1377, RegionCon 3.6024, Reg 0.009464) | Train Acc: 0.8958 | Test Acc: 0.8343 | LR: 0.000004
+[2025-09-23 21:35:56,538][contrast_train.py][line:362][INFO] Epoch [175/200] Train Loss: 1.1928 (CE 0.3092, Con 5.1313, RegionCon 3.6079, Reg 0.009606) | Train Acc: 0.8941 | Test Acc: 0.8331 | LR: 0.000004
+[2025-09-23 21:39:54,793][contrast_train.py][line:362][INFO] Epoch [176/200] Train Loss: 1.1921 (CE 0.3082, Con 5.1365, RegionCon 3.6058, Reg 0.009669) | Train Acc: 0.8967 | Test Acc: 0.8343 | LR: 0.000004
+[2025-09-23 21:43:50,405][contrast_train.py][line:362][INFO] Epoch [177/200] Train Loss: 1.1937 (CE 0.3101, Con 5.1334, RegionCon 3.6068, Reg 0.009550) | Train Acc: 0.8937 | Test Acc: 0.8339 | LR: 0.000004
+[2025-09-23 21:47:46,978][contrast_train.py][line:362][INFO] Epoch [178/200] Train Loss: 1.1950 (CE 0.3108, Con 5.1324, RegionCon 3.6148, Reg 0.009548) | Train Acc: 0.8960 | Test Acc: 0.8387 | LR: 0.000004
+[2025-09-23 21:51:43,367][contrast_train.py][line:362][INFO] Epoch [179/200] Train Loss: 1.1911 (CE 0.3066, Con 5.1350, RegionCon 3.6154, Reg 0.009439) | Train Acc: 0.8961 | Test Acc: 0.8310 | LR: 0.000004
+[2025-09-23 21:55:38,919][contrast_train.py][line:362][INFO] Epoch [180/200] Train Loss: 1.2003 (CE 0.3158, Con 5.1382, RegionCon 3.6108, Reg 0.009629) | Train Acc: 0.8898 | Test Acc: 0.8327 | LR: 0.000002
+[2025-09-23 21:59:34,616][contrast_train.py][line:362][INFO] Epoch [181/200] Train Loss: 1.2000 (CE 0.3157, Con 5.1373, RegionCon 3.6085, Reg 0.009736) | Train Acc: 0.8910 | Test Acc: 0.8339 | LR: 0.000002
+[2025-09-23 22:03:30,098][contrast_train.py][line:362][INFO] Epoch [182/200] Train Loss: 1.1976 (CE 0.3133, Con 5.1368, RegionCon 3.6091, Reg 0.009732) | Train Acc: 0.8945 | Test Acc: 0.8383 | LR: 0.000002
+[2025-09-23 22:07:26,465][contrast_train.py][line:362][INFO] Epoch [183/200] Train Loss: 1.1941 (CE 0.3095, Con 5.1378, RegionCon 3.6094, Reg 0.009884) | Train Acc: 0.8963 | Test Acc: 0.8359 | LR: 0.000002
+[2025-09-23 22:11:21,628][contrast_train.py][line:362][INFO] Epoch [184/200] Train Loss: 1.1905 (CE 0.3065, Con 5.1354, RegionCon 3.6085, Reg 0.009671) | Train Acc: 0.8947 | Test Acc: 0.8367 | LR: 0.000002
+[2025-09-23 22:15:16,599][contrast_train.py][line:362][INFO] Epoch [185/200] Train Loss: 1.1916 (CE 0.3077, Con 5.1346, RegionCon 3.6072, Reg 0.009686) | Train Acc: 0.8951 | Test Acc: 0.8379 | LR: 0.000002
+[2025-09-23 22:19:12,193][contrast_train.py][line:362][INFO] Epoch [186/200] Train Loss: 1.1985 (CE 0.3146, Con 5.1340, RegionCon 3.6086, Reg 0.009625) | Train Acc: 0.8911 | Test Acc: 0.8298 | LR: 0.000002
+[2025-09-23 22:23:07,825][contrast_train.py][line:362][INFO] Epoch [187/200] Train Loss: 1.1939 (CE 0.3096, Con 5.1351, RegionCon 3.6116, Reg 0.009727) | Train Acc: 0.8951 | Test Acc: 0.8395 | LR: 0.000002
+[2025-09-23 22:27:02,560][contrast_train.py][line:362][INFO] Epoch [188/200] Train Loss: 1.1931 (CE 0.3095, Con 5.1368, RegionCon 3.6026, Reg 0.009596) | Train Acc: 0.8985 | Test Acc: 0.8347 | LR: 0.000002
+[2025-09-23 22:30:58,906][contrast_train.py][line:362][INFO] Epoch [189/200] Train Loss: 1.1990 (CE 0.3141, Con 5.1383, RegionCon 3.6132, Reg 0.009758) | Train Acc: 0.8944 | Test Acc: 0.8343 | LR: 0.000002
+[2025-09-23 22:34:55,177][contrast_train.py][line:362][INFO] Epoch [190/200] Train Loss: 1.1900 (CE 0.3064, Con 5.1348, RegionCon 3.6060, Reg 0.009488) | Train Acc: 0.8999 | Test Acc: 0.8436 | LR: 0.000002
+[2025-09-23 22:38:50,572][contrast_train.py][line:362][INFO] Epoch [191/200] Train Loss: 1.1924 (CE 0.3084, Con 5.1335, RegionCon 3.6117, Reg 0.009535) | Train Acc: 0.8966 | Test Acc: 0.8205 | LR: 0.000002
+[2025-09-23 22:42:46,460][contrast_train.py][line:362][INFO] Epoch [192/200] Train Loss: 1.1912 (CE 0.3074, Con 5.1353, RegionCon 3.6075, Reg 0.009492) | Train Acc: 0.8961 | Test Acc: 0.8282 | LR: 0.000002
+[2025-09-23 22:46:41,213][contrast_train.py][line:362][INFO] Epoch [193/200] Train Loss: 1.1917 (CE 0.3082, Con 5.1347, RegionCon 3.6042, Reg 0.009550) | Train Acc: 0.8951 | Test Acc: 0.8400 | LR: 0.000002
+[2025-09-23 22:50:36,951][contrast_train.py][line:362][INFO] Epoch [194/200] Train Loss: 1.1946 (CE 0.3108, Con 5.1380, RegionCon 3.6041, Reg 0.009627) | Train Acc: 0.8930 | Test Acc: 0.8302 | LR: 0.000002
+[2025-09-23 22:54:33,130][contrast_train.py][line:362][INFO] Epoch [195/200] Train Loss: 1.1934 (CE 0.3094, Con 5.1343, RegionCon 3.6103, Reg 0.009565) | Train Acc: 0.8940 | Test Acc: 0.8290 | LR: 0.000002
+[2025-09-23 22:58:30,952][contrast_train.py][line:362][INFO] Epoch [196/200] Train Loss: 1.1934 (CE 0.3102, Con 5.1332, RegionCon 3.6032, Reg 0.009535) | Train Acc: 0.8922 | Test Acc: 0.8412 | LR: 0.000002
+[2025-09-23 23:02:27,534][contrast_train.py][line:362][INFO] Epoch [197/200] Train Loss: 1.1872 (CE 0.3038, Con 5.1315, RegionCon 3.6053, Reg 0.009739) | Train Acc: 0.8981 | Test Acc: 0.8432 | LR: 0.000002
+[2025-09-23 23:06:23,033][contrast_train.py][line:362][INFO] Epoch [198/200] Train Loss: 1.1862 (CE 0.3029, Con 5.1346, RegionCon 3.6026, Reg 0.009559) | Train Acc: 0.8954 | Test Acc: 0.8323 | LR: 0.000002
+[2025-09-23 23:10:20,039][contrast_train.py][line:362][INFO] Epoch [199/200] Train Loss: 1.1976 (CE 0.3132, Con 5.1362, RegionCon 3.6108, Reg 0.009741) | Train Acc: 0.8919 | Test Acc: 0.8391 | LR: 0.000002
+[2025-09-23 23:14:15,633][contrast_train.py][line:362][INFO] Epoch [200/200] Train Loss: 1.1887 (CE 0.3050, Con 5.1300, RegionCon 3.6107, Reg 0.009638) | Train Acc: 0.8951 | Test Acc: 0.8347 | LR: 0.000001
+[2025-09-23 23:14:15,878][contrast_train.py][line:381][INFO] Training done. Best test acc: 0.8436
