@@ -37,24 +37,24 @@ def get_logger(filename, verbosity=1, name=None):
 
 def parse_args():
     p = argparse.ArgumentParser("Contrastive + Classification (PointNet)")
-    p.add_argument("--dataset", type=str,default="/data/cjj/projects/pointnet.pytorch/data/modelnet40_ply_hdf5_2048",
+    p.add_argument("--dataset", type=str,default="/data/home/scvi197/run/cjj/pointnet.pytorch/data/modelnet40_ply_hdf5_2048",
                    help="ModelNet40 HDF5 dir (contains train_files.txt/test_files.txt)")
-    p.add_argument("--batchSize", type=int, default=32)
+    p.add_argument("--batchSize", type=int, default=64)
     p.add_argument("--nepoch", type=int, default=200)
     p.add_argument("--npoints", type=int, default=1024)
     p.add_argument("--lr", type=float, default=1e-3)
     p.add_argument("--step_size", type=int, default=20)
     p.add_argument("--gamma", type=float, default=0.5)
-    p.add_argument("--feature_transform", action="store_true")
+    p.add_argument("--feature_transform", action="store_true", default=True)
     p.add_argument("--workers", type=int, default=4)
     p.add_argument("--seed", type=int, default=42)
     p.add_argument("--use_cpu", action="store_true", default=False)
-    p.add_argument("--gpu_id", type=str, default="1")
+    p.add_argument("--gpu_id", type=str, default="0")
     # augmentation & contrastive
     p.add_argument("--rotation_mode", type=str, default="xyz", choices=["xyz", "yaw", "none"])
     p.add_argument("--no_jitter", action="store_true", default=False)
     p.add_argument("--lambda_con", type=float, default=0.1, help="weight for contrastive loss")
-    p.add_argument("--lambda_region", type=float, default=0.1, help="weight for region contrastive loss")
+    p.add_argument("--lambda_region", type=float, default=0.05, help="weight for region contrastive loss")
     p.add_argument("--temperature", type=float, default=0.07)
     p.add_argument("--use_region_contrast", action="store_true", default=True ,help="use region contrastive learning")
     
@@ -64,8 +64,8 @@ def parse_args():
     p.add_argument("--graphcut_c", type=float, default=0.5, help="merging threshold for graphcut")
     p.add_argument("--graphcut_min_size", type=int, default=20, help="minimum region size for graphcut")
 
-    p.add_argument('--exp_name', type=str, default='GroupContrast', help='experiment name')
-    p.add_argument('--save_dir', help='日志保存路径', default='/data/cjj/projects/pointnet.pytorch/Contrast_exp/experiment', type=str)
+    p.add_argument('--exp_name', type=str, default='GroupContrast0.1_0.05', help='')
+    p.add_argument('--save_dir', help='日志保存路径', default='/data/home/scvi197/run/cjj/pointnet.pytorch/Contrast_exp/experiment', type=str)
     return p.parse_args()
 
 
@@ -89,23 +89,55 @@ def make_loaders(args):
                              num_workers=args.workers)
     return train_loader, test_loader
 
-def info_nce_loss(z1: torch.Tensor, z2: torch.Tensor, temperature: float = 0.07) -> torch.Tensor:
-    B, D = z1.shape
-    assert z2.shape == (B, D)
-    z = torch.cat([z1, z2], dim=0)  # (2B, D)
-
-    sim = torch.matmul(z, z.t())  # (2B, 2B)
-    mask = torch.eye(2 * B, device=z.device).bool()
-    sim = sim / temperature
-
-    pos_indices = torch.arange(2 * B, device=z.device)
-    pos_indices = (pos_indices + B) % (2 * B)
-    pos_sim = sim[torch.arange(2 * B, device=z.device), pos_indices]
-
-    sim_exp = torch.exp(sim.masked_fill(mask, float('-inf')))
-    denom = sim_exp.sum(dim=1)
-    loss = -torch.log(torch.exp(pos_sim) / denom)
-    return loss.mean()
+def info_nce_loss(point_feat1: torch.Tensor, point_feat2: torch.Tensor, temperature: float = 0.07) -> torch.Tensor:
+    """
+    点级别InfoNCE损失 - 正样本是不同视角的相同点，其他点为负样本
+    
+    Args:
+        point_feat1: (B, D, N) 第一个视图的点级别特征
+        point_feat2: (B, D, N) 第二个视图的点级别特征
+        temperature: 温度参数
+    
+    Returns:
+        loss: 点级别对比损失
+    """
+    B, D, N = point_feat1.shape
+    device = point_feat1.device
+    
+    # 归一化特征
+    feat1_norm = F.normalize(point_feat1, dim=1)  # (B, D, N)
+    feat2_norm = F.normalize(point_feat2, dim=1)  # (B, D, N)
+    
+    total_loss = 0.0
+    total_points = 0
+    
+    for b in range(B):
+        # 当前点云的特征
+        f1 = feat1_norm[b]  # (D, N)
+        f2 = feat2_norm[b]  # (D, N)
+        
+        # 计算相似度矩阵: f1[i] 与 f2[j] 的相似度
+        sim = torch.matmul(f1.t(), f2) / temperature  # (N, N)
+        
+        # 正样本：相同点的不同视角 (对角线元素)
+        pos_sim = torch.diag(sim)  # (N,) - 第i个点与第i个点的相似度
+        
+        # 负样本：不同点的相似度 (非对角线元素)
+        # 对于每个点i，负样本是与所有其他点的相似度
+        pos_exp = torch.exp(pos_sim)  # (N,)
+        
+        # 计算每个点的负样本相似度
+        # 对于点i，负样本是与所有其他点的相似度
+        neg_exp_sum = torch.exp(sim).sum(dim=1) - pos_exp  # (N,) - 排除对角线
+        
+        # 计算损失
+        denominator = pos_exp + neg_exp_sum
+        losses = -torch.log(pos_exp / denominator)
+        
+        total_loss += losses.sum()
+        total_points += N
+    
+    return total_loss / max(total_points, 1)
 
 def region_contrastive_loss(point_feat1: torch.Tensor, point_feat2: torch.Tensor, 
                            segments: torch.Tensor, temperature: float = 0.07) -> torch.Tensor:
@@ -284,11 +316,11 @@ def main():
                 reg = 0.5 * (feature_transform_regularizer(trans_feat1) +
                              feature_transform_regularizer(trans_feat2)) * 0.001
 
-            # global contrastive loss
-            con = info_nce_loss(z1, z2, temperature=args.temperature)
+            # point-level contrastive loss
+            con = info_nce_loss(point_feat1, point_feat2, temperature=args.temperature)
 
             # region contrastive loss
-            region_con = 0.0
+            # region_con = 0.0
             if args.use_region_contrast and segments is not None:
                 # 使用真正的点级特征 point_feat1, point_feat2 (B, 1024, N)
                 region_con = region_contrastive_loss(point_feat1, point_feat2, segments, temperature=args.temperature)
