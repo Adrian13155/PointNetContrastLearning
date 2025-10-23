@@ -74,20 +74,19 @@ class get_loss(torch.nn.Module):
         return loss
 
 if __name__ == "__main__":
-    # 测试四元数PointNet
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     
     # 创建测试数据
     batch_size = 8
     num_points = 1024
-    x = torch.randn(batch_size, num_points, 3).to(device)
+    x = torch.randn(batch_size, 3, num_points).to(device)
     
     # 创建模型
     model = ContrastPointNetREQNN(k=40, normal_channel=False).to(device)
     
     # 前向传播
     pred, final_quat_vec, local_feat = model(x)
-    
+    print(f"输出local_feat形状: {local_feat.shape}")
     print(f"输出pred形状: {pred.shape}")
     print(f"输出final_quat_vec形状: {final_quat_vec.shape}")
     

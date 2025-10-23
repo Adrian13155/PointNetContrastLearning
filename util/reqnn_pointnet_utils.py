@@ -30,14 +30,17 @@ class PointNetEncoderREQNN(nn.Module):
         self.feature_transform = False 
 
     def forward(self, x):
-        # 输入 x 的形状是 [Batch, Num_Points, Dims], 例如 [4, 1024, 3]
-        B, N, D = x.size()
+        # 输入 x 的形状是 [Batch, Dims, Num_Points], 例如 [4, 3, 1024]
+        B, D, N = x.size()
         
-        # 1. 将3D点云提升为纯四元数 (w=0, x, y, z)
+        # 1. 转置为 [B, N, D] 格式以进行后续处理
+        x = x.transpose(1, 2)  # [B, N, D] = [B, 1024, 3]
+        
+        # 2. 将3D点云提升为纯四元数 (w=0, x, y, z)
         # 我们应该在最后一个维度 (D=3) 的左边填充一个0
         x_q = F.pad(x, (1, 0), 'constant', 0)  # 现在的形状是: [B, N, 4]
         
-        # 2. 调整维度以匹配 QConv1d 的输入格式: [B, C_in, N, 4]
+        # 3. 调整维度以匹配 QConv1d 的输入格式: [B, C_in, N, 4]
         # 我们将每个点云视为一个通道 (C_in=1)
         x_q = x_q.unsqueeze(1) # 现在的形状是: [B, 1, N, 4]
         
@@ -50,7 +53,8 @@ class PointNetEncoderREQNN(nn.Module):
         x_q = self.q_relu(self.bn2(self.conv2(x_q))) # Shape: [B, 128, N, 4]
         x_q = self.q_relu(self.bn3(self.conv3(x_q))) # 最后一层卷积后通常不加激活函数，但是这里为了旋转不变性加了
 
-        local_real_feat = x_q
+        # 将四元数局部特征转换为实数特征
+        local_real_feat = x_q  
 
         # 4. 使用正确的实例化池化层进行等变最大池化
         # print(f"输出x_q形状: {x_q.shape}")
